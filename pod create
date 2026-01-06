@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+  labels:
+    app: flight
+spec:
+  containers:
+    - name: cont1
+      image: kalyanrunval/flightrepo:flight2
+      ports:
+        - containerPort: 80
