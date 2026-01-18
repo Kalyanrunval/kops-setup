@@ -6,4 +6,4 @@ chmod +x kops
 sudo mv kops /usr/local/bin/kops
 ####
 
-kops create cluster - - name clustername.k8s.local  - -zones us-east-1a,us-east-1b  - - master-size c7i-flex.large  - -master-volume-size 30  - -node-count 2 - -node-volume-size 25   - -node-size t3.micro  - -image=
+kops create cluster --name kalyan.k8s.local --zones us-east-1a,us-east-1b --control-plane-size c7i-flex.large --control-plane-volume-size 25 --node-count 2 --node-volume-size 25 --node-size t3.micro --image=ami-0ecb62995f68bb549
