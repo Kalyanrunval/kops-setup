@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mydb
+spec:
+  serviceName: mydb-service
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mobile
+  template:
+    metadata:
+      labels:
+        app: mobile
+    spec:
+      containers:
+        - name: cont1
+          image: kalyanrunval/mobilerepo:mobile
+          ports:
+            - containerPort: 80
