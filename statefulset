@@ -19,3 +19,7 @@ spec:
           image: kalyanrunval/mobilerepo:mobile
           ports:
             - containerPort: 80
+
+
+
+###  kubectl scale statefulset mydb --replicas=2
