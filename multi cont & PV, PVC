@@ -1,0 +1,67 @@
+# Multicontainer with volumes
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mobile
+  template:
+    metadata:
+      name: mytemp
+      labels:
+        app: mobile
+    spec:
+      containers:
+        - name: cont1
+          image: nginx
+          volumeMounts:
+            - mountPath: /opt/cont1
+              name: devops
+
+        - name: cont2
+          image: httpd
+          command: ["/bin/bash", "-c", "while true; do echo hello; sleep 10; done"]
+          volumeMounts:
+            - mountPath: /opt/cont2
+              name: devops
+      volumes:
+        - name: devops
+          persistentVolumeClaim:
+            claimName: pvc1
+
+# PV file
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv1
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  awsElasticBlockStore:
+    volumeID: vol-08f07ab7370ddf2d2
+    fsType: ext4
+
+
+# PVC file
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
